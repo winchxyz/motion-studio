@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>studio film</title>
+<style>
+  html, body { margin: 0; background: #0b0c0e; }
+  canvas#gl { display: block; max-width: 100vw; max-height: 100vh; margin: 0 auto; }
+</style>
+<script type="importmap">{ "imports": { "three": "/node_modules/three/build/three.module.js", "three/addons/": "/node_modules/three/examples/jsm/", "opentype": "/node_modules/opentype.js/dist/opentype.mjs" } }</script>
+</head>
+<body>
+<!-- Driven by studio/tools/render.mjs: window.REEL renders frames of the film named by ?film=.
+     ?t=4.2 renders one frame on load. -->
+<canvas id="gl"></canvas>
+<script type="module">
+  import { boot } from './harness.js';
+  const params = new URLSearchParams(location.search);
+  try {
+    const REEL = await boot({ canvas: document.getElementById('gl'), params });
+    window.REEL = REEL;
+    if (params.get('t')) await REEL.render(+params.get('t'));
+  } catch (e) {
+    window.REEL_ERROR = String(e && e.stack || e);
+    console.error(e);
+  }
+</script>
+</body>
+</html>

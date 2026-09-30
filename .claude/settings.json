@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/studio/tools/hooks/check-js.mjs\"", "timeout": 20 }
+        ]
+      }
+    ]
+  }
+}

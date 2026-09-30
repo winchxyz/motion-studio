@@ -1,0 +1,9 @@
+{
+  "name": "engine-test",
+  "title": "Engine test: layers, looks, transitions, formats",
+  "fps": 60,
+  "duration": 8,
+  "bpm": 120,
+  "samples": 12,
+  "formats": ["h", "v", "s", "p"]
+}

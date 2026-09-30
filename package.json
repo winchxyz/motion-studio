@@ -1,0 +1,11 @@
+{
+  "name": "motion-studio",
+  "private": true,
+  "type": "module",
+  "description": "Code-rendered motion films: shared engine and tools in studio/, one folder per film",
+  "dependencies": {
+    "lucide-static": "^1.48.0",
+    "opentype.js": "^2.0.0",
+    "three": "^0.186.1"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "NAME",
+  "title": "TITLE",
+  "fps": 60,
+  "duration": 30,
+  "bpm": 120,
+  "samples": 16,
+  "formats": ["h", "v"],
+  "deliver": { "poster": null, "styleframes": null }
+}

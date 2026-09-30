@@ -1,0 +1,13 @@
+{
+  "name": "NAME",
+  "title": "TITLE",
+  "fps": 60,
+  "duration": 45,
+  "samples": 12,
+  "formats": ["h", "v"],
+  "song": "assets/song.json",
+  "songStart": 0,
+  "audio": { "song": "assets/song.mp3", "songStart": 0, "sfx": true, "sfxGain": 0.6, "duck": 0.2, "tail": 0.8 },
+  "look": "a single art direction, e.g. riso print (navy + pink on cream), set in brief.md",
+  "deliver": { "poster": null, "styleframes": null }
+}

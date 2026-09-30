@@ -1,0 +1,8 @@
+{
+  "name": "looks",
+  "title": "Looks line-up",
+  "fps": 60,
+  "duration": 8,
+  "samples": 8,
+  "formats": ["h"]
+}

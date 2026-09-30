@@ -1,0 +1,16 @@
+# renders and scratch
+**/out/
+**/__pycache__/
+node_modules/
+*.log
+.env
+
+# your films and references stay local unless you choose to commit them
+/*/
+!/studio/
+!/_lab/
+!/.claude/
+!/styles/
+!/docs/
+refs/
+**/assets/gen/raw/

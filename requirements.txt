@@ -1,0 +1,8 @@
+# sound synthesis, analysis and QA
+numpy>=2.0
+pillow>=10.0
+opencv-python>=4.9
+# optional: lyric timing for music videos (studio/tools/song.py)
+faster-whisper>=1.1
+# optional: downloading reference videos (motion-reference skill)
+yt-dlp>=2026.1.1

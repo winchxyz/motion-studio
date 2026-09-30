@@ -1,0 +1,8 @@
+{
+  "name": "three-test",
+  "title": "3D test: extruded type, voxels, chrome",
+  "fps": 60,
+  "duration": 4,
+  "samples": 12,
+  "formats": ["h", "v"]
+}

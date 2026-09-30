@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "studio",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["studio/tools/serve.mjs", "--port", "8960"],
+      "port": 8960
+    }
+  ]
+}
