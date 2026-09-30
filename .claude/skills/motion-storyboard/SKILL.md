@@ -5,8 +5,21 @@ description: Plan a motion video's shots on the beat grid in this studio - pacin
 
 # Storyboard
 
-Write `<film>/storyboard.md` (one row per shot: beat, time, lyric or line, picture, transition in,
-notes), then mirror it as the SHOTS array in film.js.
+Write `<film>/storyboard.md` (one row per shot: id, time, length, the line or text on screen verbatim,
+the picture in one sentence, transition in), then mirror it in `shots/index.js`.
+
+## Keep the plan small (every agent reads it)
+
+- storyboard.md is a table of 12 KB at most. Times come from the timing file film.json points at
+  (the song's json, or `assets/timing.json` for a narrator): never typed seconds, never re-derived.
+- The detail of each shot goes in `shots/<id>.md`, 1.5 KB at most: composition in each format (where
+  the subject and the text sit, the text's scale class), the motion, the assets. A builder reads only
+  its own shots' notes.
+- Every shot gets its file at planning time, as a stub (`export default stub('<id>', '<intent>')`),
+  imported by `shots/index.js`, so builders write only their own shot files and never the shared ones.
+- Two shots are heroes (`styleframe: true`): the hook and the most demanding one; they are built first
+  and set the standard. The rest go in groups of 3-5 consecutive shots, one builder per group.
+- Reasoning, alternatives and evidence go to `evidence/`, not into the plan.
 
 ## Time
 

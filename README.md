@@ -3,13 +3,10 @@
 # motion-studio
 
 **One brief in, a finished motion video out.**
-A Claude Code workflow that researches, pitches, scores, storyboards, designs, builds, reviews
-and delivers motion videos, with a team of agents and a GPU engine where every frame is code.
+A Claude Code workflow that researches, pitches, times, builds, checks and delivers motion videos,
+on a GPU engine where every frame is code.
 
-<img src="docs/media/hero.gif" width="720" alt="The end of the film this workflow made about itself: a thermal receipt prints ONE BRIEF IN, A FINISHED MOTION VIDEO OUT., tears off, and the repo appears">
-
-**▶ Watch the film it made about itself:** [16:9](https://github.com/winchxyz/motion-studio/releases/download/v0.1.0/proof-of-work-16x9.mp4) ·
-[9:16](https://github.com/winchxyz/motion-studio/releases/download/v0.1.0/proof-of-work-9x16.mp4) (48 s, with sound)
+<img src="docs/media/workflow.jpg" width="100%" alt="The workflow in six pictures: a concept pitched with frames, the audio take you pick, every shot on the beat, styleframes and a critic, checks by tools and eyes, delivery in every format">
 
 [![Claude Code workflow](https://img.shields.io/badge/Claude%20Code-workflow-D97757?logo=anthropic&logoColor=white)](WORKFLOW.md)
 [![Opus 5.5 judges, Sonnet 5.5 builds](https://img.shields.io/badge/Opus%205.5%20judges-Sonnet%205.5%20builds-D97757)](https://www.anthropic.com/claude)
@@ -23,95 +20,75 @@ and delivers motion videos, with a team of agents and a GPU engine where every f
 
 </div>
 
-## The film at the top made itself
+## How it works
 
-The brief was one paragraph: a film about this workflow, made by this workflow. Three agents pitched
-three concepts with rendered frames, three judges scored them, and **Paper Trail** won (23/30): a
-thermal printer prints the record of the film's own run, in time with the narrator.
-
-<img src="docs/media/concepts.jpg" width="100%" alt="The three concept pitches: The Brief, Annotated (20/30), Caret (12/30), Paper Trail (23/30)">
-
-<sub>The three pitches, as the judges saw them: <b>The Brief, Annotated</b> (20/30), <b>Caret</b> (12/30), <b>Paper Trail</b> (23/30).</sub>
-
-Every number the receipt prints comes from the run's own log: the brief's 228 words, 12 references and
-14 checked facts, 23 of 30 points from 3 judges, the sound (a narrator and a music bed picked by ear from
-two of each), 24 shots on the grid, 16 fixers working in parallel, 49 critic notes fixed, 0 undeclared
-cuts, -14 LUFS, 0 pictures generated.
-
-| Storyboard, timed to the narration | Styleframes, after two critics |
-| --- | --- |
-| <img src="docs/media/storyboard.jpg" alt="The storyboard sheet: 24 shots"> | <img src="docs/media/styleframes.jpg" alt="Six styleframes in 16:9"> |
-
-<img src="docs/media/film-sheet.jpg" width="100%" alt="The finished film, one frame every two seconds">
-
-## What it is
-
-You write a brief ("a 45-second launch film for our app, in our brand, made to travel on X").
-Claude Code runs `.claude/workflows/motion-video.js` and a team of agents takes it from there:
+You write a brief ("a 30-second launch film for our app, in our brand, 16:9 and 9:16"). Claude Code
+runs `.claude/workflows/motion-video.js`. By default it works **direct**: one stop for your decision,
+and one agent makes the film the way a single motion designer would, because for a short film that is
+faster and cheaper than splitting the work across many agents.
 
 ```mermaid
 flowchart LR
-  B[Brief] --> R[Research<br/>references · truth]
-  R --> C[3 concepts]
-  C --> J{Judge panel<br/>attention · craft · feasibility}
-  J --> S[Sound<br/>song, or narrator + music bed]
-  S --> Y{You listen<br/>and pick}
-  Y --> P[Storyboard<br/>+ critic]
-  P --> L[Look<br/>style sheet · assets · styleframes<br/>+ critics]
-  L --> BU[Build every shot<br/>build → review → fix]
-  BU --> RV{Review rounds<br/>QA · text audit · 3 critics}
-  RV -->|major notes| BU
-  RV --> D[Deliver<br/>16:9 · 9:16 · 1:1 · 4:5 · 4K]
+  B[Brief<br/>folder · length · formats] --> C[Concept<br/>research · key frames]
+  B --> S[Sound<br/>two takes · timing]
+  C --> Y{You look,<br/>listen and pick}
+  S --> Y
+  Y --> M[Make<br/>one agent: shot list, style,<br/>every shot, QA checks]
+  M --> K{Critic<br/>Opus, sees only frames}
+  K --> F[Finish<br/>fixes · every format · mastered sound]
 ```
 
-| Stage | Agents | Output |
+| Preset | Agents | When |
 | --- | --- | --- |
-| Brief | setup, references, truth (parallel) | `brief.md`, research with sources |
-| Concept | 3 concepts from different angles, 3 judges, a synthesiser | `concept.md` |
-| Sound | a song (Runway Lyria), or a narrator (two voices) over a music bed (two beds), timed word by word; the run stops until you have listened and picked | `song.json`, `out/listen-*.mp3` |
-| Plan | storyboard on the beat grid, then a critic | `storyboard.md`, `shots/index.js` |
-| Look | style sheet, characters, sets, clips, styleframes, 2 critics | `style.js`, `assets/gen/`, stills |
-| Build | one builder, reviewer and fixer per shot, in parallel | `shots/*.js` |
-| Review | QA + text audit + 3 critics per round, fixers, up to 3 rounds | a clean cut |
-| Deliver | all formats, mastered sound, previews, post copy | `out/`, `post.md` |
+| `direct` (default) | 6: setup, concept and sound at the same time, one maker, one critic, one finishing pass | films up to about a minute |
+| `lean` | about 12: a planner, a look stage with hero shots, shot builders working in parallel, a review round | long films with many shots |
+| `full` | 30+: three concepts and a judge panel, a drawn storyboard with a critic, a builder, reviewer and fixer per shot, up to three review rounds | when a film is worth everything |
 
 Details: [WORKFLOW.md](WORKFLOW.md).
 
 ## Why the results hold up
 
+- **You decide before anything is built.** The run stops once: you see the concept's key frames and hear
+  the audio takes (a song, a music bed, or narrator voices) and pick. Nothing is made on audio you haven't
+  heard.
 - **A written quality bar.** Every agent reads [`motion-craft`](.claude/skills/motion-craft/SKILL.md):
   type scale, motion timing and easing, composition, the social hook, and what never ships
   (placeholder art, default fonts, PowerPoint motion).
-- **Independent eyes.** Judges pick the concept; a critic agent that sees only frames reviews the
-  storyboard, the styleframes, every shot and the whole film, round after round.
+- **Independent eyes.** A critic agent on Opus that has not seen the code judges the film from its frames.
 - **Measurements, not only opinions.** `qa.py` finds cuts nobody placed and stretches too fast to
   follow (optical flow); `audit.mjs` checks every piece of text for safe area, size, overlaps and
   reading time; loudness is mastered to -14 LUFS / -1 dBTP.
+- **Truth on screen.** Every fact, number and handle is checked at its source and written in the brief.
 - **Generated media is a base, not the result.** Runway stills and clips are redrawn in code
   (ink, painterly, riso, halftone, dither) and animated with rigs and JS overlays.
-- **You hear it before it's built on.** The run stops after the sound so you can listen to the takes
-  (a song, or two narrators over two music beds) and pick; nothing is storyboarded on audio you haven't
-  approved.
-- **Two tiers of models.** Every agent that makes something (research, storyboard, art, shots, fixes,
-  delivery) runs on Claude Sonnet 5.5; the judges and every critic run on Claude Opus 5.5
-  (`models: { worker, judge }` to change either).
+
+## What a run leaves behind
+
+From the first long film made with it: the three concept pitches the judges scored, the storyboard
+sheet timed to the audio, the styleframes the shots were built to, the preview player, and the QA curves
+of the finished cut.
+
+<img src="docs/media/concepts.jpg" width="100%" alt="Three concept pitches, each with rendered frames">
+
+| Storyboard, timed to the audio | Styleframes, after the critics |
+| --- | --- |
+| <img src="docs/media/storyboard.jpg" alt="The storyboard sheet"> | <img src="docs/media/styleframes.jpg" alt="Styleframes in 16:9"> |
 
 | The preview player: scrub, beat and edit marks, formats, safe areas, notes | `qa.py` on the final cut: motion, cuts, light, colour |
 | --- | --- |
-| <img src="docs/media/player.png" alt="The preview player"> | <img src="docs/media/qa.png" alt="QA curves of the film"> |
+| <img src="docs/media/player.png" alt="The preview player"> | <img src="docs/media/qa.png" alt="QA curves of a finished cut"> |
 
 ## What it costs
 
-Measured on the film above, at API prices: 46 agents, about $320 and about 17 hours of run time, plus 48
-Runway credits (two narrator voices, two music beds, one song). That includes one detour worth about $90
-and 5 hours: the first soundtrack was a generated song, and after hearing it we switched to a narrator,
-which is why the run now stops for you to listen before anything is built on the sound.
+Measure any run with `python studio/tools/runcost.py <run id>`: agents, tokens, dollars at API prices
+and hours per stage.
 
-Nearly all of the cost is agents re-reading their own context: a shot builder that looks at its renders
-grows to 300-500K tokens and re-reads them on every step. So the workflow keeps agents lean: makers on
-Sonnet, short reads, a few render-and-look passes at low samples, one art-prep agent instead of one per
-asset, and a build stage you can skip (`from: "review"`) when the storyboard's shots are already
-animated, as they were here.
+The first long film (48 s) ran the full path: 46 agents, about 17 hours and about $320 of usage at API
+prices. Nearly all of that was agents re-reading their own context: every agent starts by loading the
+studio and the film, and a builder that keeps looking at its renders grows to 300-500K tokens and
+re-reads them on every step. That is why the default is now direct (six agents), why documents are capped
+(brief 6 KB, concept 5 KB, shot table 12 KB), why every maker has a budget (about three render-and-look
+passes), and why makers run on Sonnet while only the critics run on Opus.
 
 ## The engine
 
@@ -153,9 +130,9 @@ Open Claude Code in the folder and say:
 
 > Run the motion-video workflow: a 30-second launch film for <product>, their brand, 16:9 and 9:16.
 
-Watch it with `/workflows`. The run stops after the sound for you to listen: say which take and it
-continues from the storyboard. Add "stop at the look" to approve the styleframes before the build.
-Everything also works by hand:
+Watch it with `/workflows`. It stops once, after the concept and the sound: look at the key frames,
+listen to the takes, say which, and it runs to delivery. Ask for `preset: "lean"` on a long film with
+many shots. Everything also works by hand:
 
 ```bash
 node studio/tools/new-film.mjs my-film --template spot         # or music-video
@@ -170,15 +147,16 @@ python studio/tools/qa.py my-film --format h
 
 ```
 .claude/
-  workflows/motion-video.js    the orchestration (8 stages, listening stop, model tiers, credit cap, resume)
+  workflows/motion-video.js    the orchestration (direct, lean and full presets, the approval stop,
+                               model tiers, budgets, credit cap, resume)
   skills/motion-*/SKILL.md     film, brief, song, storyboard, art, build, review, deliver, reference, craft
   agents/motion-critic.md      the reviewer that only sees frames
   settings.json                a hook that syntax-checks every edited JS file
 studio/
   engine/    compositor, looks, shaders, type, draw, timeline, formats, rig, captions, 3D, player
-  tools/     render, deliver, serve, new-film, song, breakdown, qa, audit, frames, seq, fetch, fonts
+  tools/     render, deliver, serve, new-film, song, breakdown, qa, audit, frames, seq, fetch, fonts, runcost
   audio/     synth, mixer, cue effects, mixdown
-  templates/ music-video, spot  (style.js + one file per shot, so builders work in parallel)
+  templates/ music-video, spot  (style.js + one file per shot)
   fonts/     Inter, Geist Mono, Newsreader, Instrument Serif (OFL)
 styles/      style cards the concept stage draws from
 _lab/        engine tests
@@ -187,6 +165,5 @@ _lab/        engine tests
 ## Credits
 
 Built by [@winchxyz](https://github.com/winchxyz) with Claude Code. Claude Opus 5.5 wrote the engine,
-the tools and the workflow; the film at the top of this page was made by the workflow itself, with
-Sonnet 5.5 building and Opus 5.5 judging.
+the tools and the workflow; when it runs, Sonnet 5.5 makes and Opus 5.5 judges.
 Fonts under the SIL Open Font License. Code under the [MIT License](LICENSE).

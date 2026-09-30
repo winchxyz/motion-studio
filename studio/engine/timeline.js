@@ -194,7 +194,8 @@ export class Edit {
 // The film's cue list: every landing, hit, whoosh or click, with the time the sound must land on.
 export class Cues {
   constructor() { this.list = []; }
-  add(t, type, params = {}) { this.list.push({ t: +t.toFixed(4), type, ...params }); return this; }
+  // t and type go last: params may carry their own (a shot cue's relative t) and must never move the cue
+  add(t, type, params = {}) { this.list.push({ ...params, t: +t.toFixed(4), type }); return this; }
   // one cue per edit point, typed by transition (whoosh for travels, hit for flashes)
   fromEdit(edit, map = { flash: 'hit', whip: 'whoosh', push: 'whoosh', slide: 'swish', zoom: 'whoosh', wipe: 'swish', iris: 'swish', clock: 'swish', fade: null, dip: null, cut: 'cut' }) {
     for (const e of edit.edits) {

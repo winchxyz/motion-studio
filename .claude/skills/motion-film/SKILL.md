@@ -5,18 +5,23 @@ description: Make a motion video end to end in this studio (music video, brand o
 
 # Making a film
 
-The default is the workflow: `Workflow({ name: 'motion-video', args: { brief: '<the user's words>' } })`.
-It runs brief -> concept -> sound -> plan -> look -> build -> review -> deliver with a team of agents
-(WORKFLOW.md explains every stage). Pass the user's words verbatim as `brief`; add `refs`, `formats`,
-`credits`, `gate: 'look'` if they asked to approve the look first, `from` + `film` to resume,
-`until` to stop early.
+The default is the workflow, launched from its file so the current version runs:
+`Workflow({ scriptPath: '<studio root>/.claude/workflows/motion-video.js', args: { brief: '<the user's words>' } })`.
+It runs brief -> concept -> sound -> plan -> look -> build -> review -> deliver (WORKFLOW.md explains
+every stage). It is direct by default (one maker after the approval stop, then a critic and a finishing
+pass); pass `preset: 'lean'` for long films with many shots, `'full'` only when the user asks for it.
+Pass the user's words verbatim as `brief`; add `refs`, `formats`, `credits`, `gate: 'look'` if they asked
+to approve the look first, `from` + `film` to resume, `until` to stop early.
 
 Before calling it:
 - Read the film's notes.md and brief.md if the film exists (a resume), and the latest chat feedback.
-- Say in one or two lines what will happen and roughly what it costs (credits cap, time).
-While it runs, relay progress briefly. When it returns, look at the deliverables yourself
-(styleframes sheet, frames from the preview encode), then send the phone preview with SendUserFile
-and say where the masters are. If it stopped at the look, send the styleframes and ask for the yes.
+- Say in one or two lines what will happen and roughly what it costs (Runway credits, time, usage).
+It stops after the sound: send the user the key frames (`<film>/concept/out/stills/`) and the takes
+(`out/listen-*.mp3`), wait for their pick, set film.json to it, and run again with `from: 'plan'`.
+While it runs, relay progress briefly and stay out of its way: no side work that competes for the GPU,
+no restarts unless an agent is plainly looping. When it returns, look at the deliverables yourself
+(frames from the preview encode), send the phone preview with SendUserFile, say where the masters are,
+and measure the run with `python studio/tools/runcost.py <run id>`.
 
 ## By hand (a small change, a single stage, a fix)
 

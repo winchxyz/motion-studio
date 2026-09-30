@@ -37,6 +37,7 @@ python studio/tools/seq.py <clip.mp4> <film>/assets/seq/<name> --sheet   # a gen
 node studio/tools/fetch.mjs <film> <url> assets/gen/<name>.png --model <m> --prompt "..." --cost <n>   # save + log a generation
                                                        # multi-line prompt: --prompt-file prompt.txt (UTF-8) instead of --prompt
 node studio/tools/fonts.mjs "<Family>" <film>          # an OFL family from Google Fonts into <film>/fonts
+python studio/tools/runcost.py <run id>                # a workflow run's agents, tokens, $ and hours per stage
 ```
 
 The `studio` launch config serves the root on port 8960 for the browser pane.
@@ -63,6 +64,8 @@ The `studio` launch config serves the root on port 8960 for the browser pane.
 - The user hears the song, voice-over and music and says yes before anything is built or rendered on
   them (the workflow stops after Sound with the takes in `out/listen-*.mp3`). A film about a brand or
   project carries its real information (what it is, how to join, where) on screen, not only its in-jokes.
+- A film's documents stay short, since every agent reads them: brief.md 6 KB, concept.md 5 KB,
+  storyboard.md 12 KB, shots/<id>.md 1.5 KB. Research, evidence and reasoning go to research/ and evidence/.
 - Never show the user a test, a stub or placeholder art: only work that meets motion-craft.
 
 ## Engine gotchas

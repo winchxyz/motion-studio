@@ -22,7 +22,8 @@ export default {
     const shots = await shotList(G, SONG, ctx);
     EDIT = new Edit(shots, { W: F.W, H: F.H, duration: meta.duration });
     CUES = new Cues().fromEdit(EDIT);
-    for (const s of shots) for (const c of s.cues || []) CUES.add(s.at + c.t, c.type, c);
+    // a shot's cues are timed from the shot's start: the sound lands at s.at + t
+    for (const s of shots) for (const { t: dt, type, ...rest } of s.cues || []) CUES.add(s.at + dt, type, rest);
   },
 
   // shots with image sequences load their frames here (both shots during a transition)

@@ -1,6 +1,6 @@
 // The storyboard as code: one entry per shot, in order. Written by the planner from storyboard.md;
 // builders only write their own shots/<id>.js. Scene changes sit on bar lines: G.bt(bar).
-//   { id, at (film s), in: transition, build, prepare?, captions?: false, look?: [...], cues?: [{ t, type }] }
+//   { id, at (film s), in: transition, build, prepare?, captions?: false, look?: [...], cues?: [{ t (s after the shot starts), type }] }
 import stub from './_stub.js';
 
 export async function shotList(G, S, ctx) {

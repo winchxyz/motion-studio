@@ -19,8 +19,13 @@ from synth import SR, midi, pad_note, pluck, kick, hat, bass, lp_gain, stft_filt
 from mix import Mixer  # noqa: E402
 from sfx import for_cue  # noqa: E402
 
-info = json.load(open(os.path.join(HERE, 'out', 'cues.json'), encoding='utf-8'))
 meta = json.load(open(os.path.join(HERE, 'film.json'), encoding='utf-8'))
+if (meta.get('audio') or {}).get('song'):
+    # the film runs on a song or a generated music bed (film.json audio.song): mix that with the cue effects
+    # instead of synthesizing a score
+    import subprocess
+    sys.exit(subprocess.call([sys.executable, os.path.join(os.path.normpath(STUDIO), 'mixdown.py'), HERE]))
+info = json.load(open(os.path.join(HERE, 'out', 'cues.json'), encoding='utf-8'))
 DUR = info['duration']
 BPM = meta.get('bpm', 120)
 BEAT = 60 / BPM

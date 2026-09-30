@@ -25,6 +25,8 @@ for (const f of ['film.json', 'film.js', 'style.js', 'sound.py']) {
 fs.mkdirSync(path.join(dst, 'assets', 'gen'), { recursive: true });
 fs.writeFileSync(path.join(dst, 'brief.md'), `# ${title}
 
+Every agent reads this file: keep it under 6 KB. Research goes to research/, evidence to evidence/.
+
 ## Brief
 - What it is:
 - Who it is for, where it runs:
@@ -49,11 +51,12 @@ Facts, names, numbers and handles that appear on screen, each with where it was 
 ${template === 'music-video' ? '\n## Lyrics\n' : ''}`);
 fs.writeFileSync(path.join(dst, 'storyboard.md'), `# ${title}: storyboard
 
-One row per shot. Times come from the beat grid${template === 'music-video' ? ' and the timed lyrics (assets/song.json)' : ''}.
+One row per shot, 12 KB at most. Times come from the timing file film.json points at${template === 'music-video' ? ' (the timed lyrics, assets/song.json)' : ''}.
+Each shot's detail (composition per format, motion, assets) goes in shots/<id>.md, 1.5 KB at most.
 
-| # | beat | time | ${template === 'music-video' ? 'lyric' : 'line / VO'} | picture | in | notes |
-| --- | --- | --- | --- | --- | --- | --- |
-| 1 | 0 | 0.00 | | | cut | |
+| id | time | length | ${template === 'music-video' ? 'lyric' : 'line / VO'} on screen | picture | in |
+| --- | --- | --- | --- | --- | --- |
+| hook | 0.00 | | | | cut |
 `);
 console.log(`created ${path.relative(process.cwd(), dst) || dst} from ${template}
 next:
