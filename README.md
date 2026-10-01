@@ -17,6 +17,10 @@ on a GPU engine where every frame is code.
 ![WebGL2](https://img.shields.io/badge/engine-WebGL2-990000?logo=webgl&logoColor=white)
 ![three.js](https://img.shields.io/badge/3D-three.js-000000?logo=threedotjs&logoColor=white)
 ![Runway MCP](https://img.shields.io/badge/gen%20media-Runway%20MCP-111111)
+[![The guide (PDF)](https://img.shields.io/badge/the%20guide-PDF-d6ff3c?labelColor=0b0d10)](docs/motion-studio-guide.pdf)
+
+**New here? Read [the guide (PDF, 12 pages)](docs/motion-studio-guide.pdf):** how the pipeline works, how to brief it,
+what to answer at the stop, what you get, and how to change it.
 
 </div>
 
@@ -132,7 +136,8 @@ Open Claude Code in the folder and say:
 
 Watch it with `/workflows`. It stops once, after the concept and the sound: look at the key frames,
 listen to the takes, say which, and it runs to delivery. Ask for `preset: "lean"` on a long film with
-many shots. Everything also works by hand:
+many shots. [The guide](docs/motion-studio-guide.pdf) walks through a whole film, with example briefs
+and answers. Everything also works by hand:
 
 ```bash
 node studio/tools/new-film.mjs my-film --template spot         # or music-video
@@ -159,6 +164,7 @@ studio/
   templates/ music-video, spot  (style.js + one file per shot)
   fonts/     Inter, Geist Mono, Newsreader, Instrument Serif (OFL)
 styles/      style cards the concept stage draws from
+docs/        the guide (PDF) and the pictures in this README
 _lab/        engine tests
 ```
 
